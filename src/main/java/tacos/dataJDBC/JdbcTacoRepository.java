@@ -1,4 +1,4 @@
-package tacos.data;
+package tacos.dataJDBC;
 
 import java.sql.Timestamp;
 import java.sql.Types;
@@ -43,6 +43,9 @@ public class JdbcTacoRepository implements TacoRepository {
 
 	private long saveTacoInfo(Taco taco) {
 		taco.setCreatedAt(new Date());
+
+		// PreparedStatementCreator and KeyHolder can be used together when you
+		// need to know the value of a database-generated ID.
 
 		PreparedStatementCreatorFactory pscf = new PreparedStatementCreatorFactory(
 				"INSERT INTO Taco (name, createdAt) VALUES (?, ?)", Types.VARCHAR, Types.TIMESTAMP);

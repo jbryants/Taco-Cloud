@@ -1,4 +1,4 @@
-package tacos.data;
+package tacos.dataJDBC;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
