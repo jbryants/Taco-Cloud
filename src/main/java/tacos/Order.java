@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -71,5 +72,8 @@ public class Order implements Serializable {
 	void placedAt() {
 		this.placedAt = new Date();
 	}
+
+	@ManyToOne
+	private User user;
 
 }

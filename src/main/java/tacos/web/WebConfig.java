@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
 		// View controllers can be used to handle HTTP GET requests for which no
 		// model data or processing is required.
 		registry.addViewController("/").setViewName("home");
+		registry.addViewController("/login").setViewName("login");
 	}
 
 }

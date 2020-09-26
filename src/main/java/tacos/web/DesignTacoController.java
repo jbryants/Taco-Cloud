@@ -1,5 +1,6 @@
 package tacos.web;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,8 +21,10 @@ import tacos.Ingredient;
 import tacos.Ingredient.Type;
 import tacos.Order;
 import tacos.Taco;
+import tacos.User;
 import tacos.data.IngredientRepository;
 import tacos.data.TacoRepository;
+import tacos.data.UserRepository;
 
 // Spring MVC is annotation-based, enabling the declaration of request-handling
 // methods with annotations such as @RequestMapping, @GetMapping, and @Post-Mapping.
@@ -37,11 +40,13 @@ public class DesignTacoController {
 
 	private final IngredientRepository ingredientRepo;
 	private TacoRepository designRepo;
+	private UserRepository userRepo;
 
 	@Autowired
-	DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo) {
+	DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo, UserRepository userRepo) {
 		this.ingredientRepo = ingredientRepo;
 		this.designRepo = designRepo;
+		this.userRepo = userRepo;
 	}
 
 	@ModelAttribute
@@ -62,8 +67,13 @@ public class DesignTacoController {
 	}
 
 	@GetMapping
-	public String showDesignForm(Model model) {
+	public String showDesignForm(Model model, Principal principal) {
 		model.addAttribute("design", new Taco());
+
+		String username = principal.getName();
+		User user = userRepo.findByUsername(username);
+		model.addAttribute("user", user);
+
 		return "design";
 	}
 
@@ -84,10 +94,7 @@ public class DesignTacoController {
 	@PostMapping
 	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
 
-		System.out.println(design + " " + order);
-
 		if (errors.hasErrors()) {
-			System.out.println(errors);
 			return "design";
 		}
 
