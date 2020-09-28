@@ -1,0 +1,31 @@
+server:
+  port: 9090
+  ssl:
+    key-store: C:\Users\bryan\Documents\https-key-store\mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
+
+#spring:
+#  security:
+#    user:
+#      name: buzz
+#      password: infinity    
+
+#spring:
+#  datasource:#    data:#    - data.sql
+
+logging:
+  file:
+    name: TacoCloud.log
+    level:
+      root: INFO
+      org.springframework.security: DEBUG
+
+taco:
+  orders:
+    pageSize: 10
+  
+  discount:
+    codes:
+      abcdef: 10
+
